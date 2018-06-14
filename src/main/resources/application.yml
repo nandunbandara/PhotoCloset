@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://s3.us-east-2.amazonaws.com
+  accessKey: AKIAIHMOTVI2BOTSEUQQ
+  secretKey: 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
+  bucketName: it15111166awsbucket
