@@ -1,4 +1,4 @@
-package me.nandunb.photocloset;
+package me.nandunb.photocloset.helpers;
 
 import org.springframework.web.multipart.MultipartFile;
 
