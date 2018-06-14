@@ -16,11 +16,65 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h1>hello</h1>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="logoContainer">
+                <img class="img-responsive" src="assets/images/closet.png">
+                <h1>Photo Closet</h1>
+            </div>
+            <div class="uploadFormContainer">
+                <form method="POST" enctype="multipart/form-data" action="/storage/upload">
+                    <div class="imageContainer">
+                        <div class="col-md-12">
+                            <input type="image" id="imagePreview" class="img-responsive" src="assets/images/placeholder.png">
+                            <input type="file" id="my_file" style="display: none;" onchange="previewFile()"/>
+                        </div>
+                    </div>
+                    <button class="btn">Upload</button>
+                </form>
             </div>
         </div>
     </div>
+
+
+    <script>
+        $("input[type='image']").click(function() {
+            $("input[id='my_file']").click();
+        });
+
+        function previewFile() {
+
+            // if(hasExtension('my_id', ['.jpg', '.gif', '.png'])){
+                var preview = document.getElementById('imagePreview');
+                var file    = document.querySelector('input[type=file]').files[0];
+                var reader  = new FileReader();
+
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                }
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = "assets/images/placeholder.png";
+                }
+            // }else {
+            //     alert("Invalid file type!");
+            // }
+
+        }
+
+        // function hasExtension(inputID, exts) {
+        //     var fileName = document.getElementById(inputID).value;
+        //     console.log(fileName);
+        //     exts.forEach(function(item){
+        //         if(item.includes(item)){
+        //             console.log(item);
+        //             return true;
+        //         }
+        //     })
+        //
+        //     return false;
+        // }
+    </script>
 </body>
 </html>
