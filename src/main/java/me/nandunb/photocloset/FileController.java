@@ -1,4 +1,4 @@
-package me.nandunb.photocloset.controller;
+package me.nandunb.photocloset;
 
 import me.nandunb.photocloset.helpers.AmazonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class FileController {
         return "Storage API v1.0";
     }
 
-    @PostMapping("/")
+    @PostMapping("/upload")
     public ResponseEntity<Object> uploadFile(@RequestPart(value = "file")MultipartFile file){
         return this.amazonClient.uploadFile(file);
     }
