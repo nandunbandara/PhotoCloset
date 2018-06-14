@@ -1,4 +1,4 @@
-package me.nandunb.photocloset;
+package me.nandunb.photocloset.helpers;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -7,12 +7,15 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Service
 public class AmazonClient {
@@ -28,7 +31,7 @@ public class AmazonClient {
     @Value("${amazonProperties.accessKey}")
     private String accessKey;
 
-    @Value("${amazonProperties.secretKey")
+    @Value("${amazonProperties.secretKey}")
     private String secretKey;
 
     @PostConstruct
@@ -37,22 +40,25 @@ public class AmazonClient {
         this.s3client = new AmazonS3Client(credentials);
     }
 
-    public String uploadFile(MultipartFile multipartFile){
+    public ResponseEntity<Object> uploadFile(MultipartFile multipartFile){
 
+        HashMap<String, Object> outputObject = new HashMap<>();
         String fileUrl = "";
-
         try{
             File file = FileUtils.convertMultiPartToFile(multipartFile);
             String fileName = FileUtils.generateFileName(multipartFile);
             fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
+            outputObject.put("fileUrl", fileUrl);
             uploadFileToS3(fileName, file);
             file.delete();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            outputObject.put("error", e.getMessage());
+            outputObject.put("cause", e.getCause());
+            return new ResponseEntity<>(outputObject, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return fileUrl;
+        return new ResponseEntity<>(outputObject, HttpStatus.CREATED);
     }
 
     //Upload file to the S3 Bucket
