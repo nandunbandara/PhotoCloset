@@ -1,6 +1,7 @@
 package me.nandunb.photocloset.utilities;
 
 import me.nandunb.photocloset.exceptions.InvalidFileTypeException;
+import me.nandunb.photocloset.exceptions.MissingFileException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,6 +12,13 @@ import java.util.Date;
 public class FileUtils {
 
     private static final String[] VALID_EXTENSIONS = {".jpg", ".png", ".gif", ".webp", ".svg", ".ai", ".eps"};
+
+    public static boolean isNull(MultipartFile file) throws MissingFileException {
+        if(file.isEmpty() || file == null)
+            throw new MissingFileException();
+
+        return false;
+    }
 
     public static File convertMultiPartToFile(MultipartFile file) throws IOException {
         File output = new File(file.getOriginalFilename());
