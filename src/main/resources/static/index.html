@@ -7,6 +7,10 @@
     <script type="text/javascript" src="assets/js/jquery-3.2.0.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 
+    <script type="text/javascript" src="assets/js/angular.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/bootstrap-theme.css">
@@ -14,23 +18,21 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body ng-app="photocloset">
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
             <div class="logoContainer">
                 <img class="img-responsive" src="assets/images/closet.png">
                 <h1>Photo Closet</h1>
             </div>
-            <div class="uploadFormContainer">
-                <form method="POST" enctype="multipart/form-data" action="/storage/upload">
-                    <div class="imageContainer">
-                        <div class="col-md-12">
-                            <input type="image" id="imagePreview" class="img-responsive" src="assets/images/placeholder.png">
-                            <input type="file" id="my_file" style="display: none;" onchange="previewFile()"/>
-                        </div>
+            <div class="uploadFormContainer" ng-controller="formController">
+                <div class="imageContainer">
+                    <div class="col-md-12">
+                        <input type="image" id="imagePreview" class="img-responsive" src="assets/images/placeholder.png">
+                        <input type="file" id="my_file" file-uploader-model="file" style="display: none;" onchange="previewFile()"/>
                     </div>
-                    <button class="btn">Upload</button>
-                </form>
+                </div>
+                <button class="btn" ng-click="uploadFile()">Upload</button>
             </div>
         </div>
     </div>
@@ -43,7 +45,6 @@
 
         function previewFile() {
 
-            // if(hasExtension('my_id', ['.jpg', '.gif', '.png'])){
                 var preview = document.getElementById('imagePreview');
                 var file    = document.querySelector('input[type=file]').files[0];
                 var reader  = new FileReader();
@@ -57,24 +58,8 @@
                 } else {
                     preview.src = "assets/images/placeholder.png";
                 }
-            // }else {
-            //     alert("Invalid file type!");
-            // }
 
         }
-
-        // function hasExtension(inputID, exts) {
-        //     var fileName = document.getElementById(inputID).value;
-        //     console.log(fileName);
-        //     exts.forEach(function(item){
-        //         if(item.includes(item)){
-        //             console.log(item);
-        //             return true;
-        //         }
-        //     })
-        //
-        //     return false;
-        // }
     </script>
 </body>
 </html>
