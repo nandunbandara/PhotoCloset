@@ -1,16 +1,33 @@
 angular.module('photocloset', [])
 
 .controller('formController', function($scope, FileUploaderService){
+
     $scope.uploadFile = function(){
+        $scope.uploading = true;
         var file = $scope.file;
         var promise = FileUploaderService.upload(file);
 
         promise.then(function(response) {
-            console.log(response);
+
+            $scope.success = response.data.success;
+            $scope.message = response.data.message;
+            $scope.completed = true;
+            $scope.uploading = false;
+
+            if($scope.success){
+                $scope.fileUrl = response.data.fileUrl;
+            }
+
         }, function() {
             console.log('ERROR!');
         })
     };
+
+    $scope.goBack = function(){
+        $scope.uploading = false;
+        $scope.completed = false;
+        $scope.file = null;
+    }
 })
 
 .service('FileUploaderService', function($http, $q){

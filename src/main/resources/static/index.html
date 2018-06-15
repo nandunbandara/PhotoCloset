@@ -25,26 +25,37 @@
                 <img class="img-responsive" src="assets/images/closet.png">
                 <h1>Photo Closet</h1>
             </div>
-            <div class="uploadFormContainer" ng-controller="formController">
-                <div class="imageContainer">
-                    <div class="col-md-12">
-                        <input type="image" id="imagePreview" class="img-responsive" src="assets/images/placeholder.png">
-                        <input type="file" id="my_file" file-uploader-model="file" style="display: none;" onchange="previewFile()"/>
+            <div ng-controller="formController">
+                <div class="uploadFormContainer" ng-show="!uploading && !completed">
+                    <div class="imageContainer">
+                        <div class="col-md-12">
+                            <input type="image" id="imagePreview" class="img-responsive" src="assets/images/placeholder.png">
+                            <input type="file" id="my_file" file-uploader-model="file" style="display: none;" onchange="previewFile()"/>
+                        </div>
                     </div>
+                    <button class="btn" ng-click="uploadFile()">Upload</button>
                 </div>
-                <button class="btn" ng-click="uploadFile()">Upload</button>
+                <div class="uploadingAnimationContainer" ng-if="uploading && !completed">
+                    <span class="fa fa-spinner fa-3x"></span>
+                    <h1>Uploading</h1>
+                </div>
+                <div class="uploadResponseContainer" ng-if="!uploading && completed">
+                    <h1>{{message}}</h1>
+                    <h3>Link: <a ng-href="{{fileUrl}}" target="_blank">{{fileUrl}}</a></h3>
+                    <button class="btn" ng-click="goBack()">Go back</button>
+                </div>
             </div>
         </div>
     </div>
 
 
     <script>
-        $("input[type='image']").click(function() {
-            $("input[id='my_file']").click();
+        $("#imagePreview").click(function() {
+            $("#my_file").click();
         });
 
         function previewFile() {
-
+                console.log("preview file called");
                 var preview = document.getElementById('imagePreview');
                 var file    = document.querySelector('input[type=file]').files[0];
                 var reader  = new FileReader();
