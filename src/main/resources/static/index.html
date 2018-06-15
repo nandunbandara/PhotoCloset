@@ -40,8 +40,9 @@
                     <h1>Uploading</h1>
                 </div>
                 <div class="uploadResponseContainer" ng-if="!uploading && completed">
-                    <h1>{{message}}</h1>
-                    <h3>Link: <a ng-href="{{fileUrl}}" target="_blank">{{fileUrl}}</a></h3>
+                    <h1 ng-class="{'text-red': !success}">{{message}}</h1>
+                    <h3 ng-if="!success">{{error}}</h3>
+                    <h3 ng-if="success">Link: <a ng-href="{{fileUrl}}" target="_blank">{{fileUrl}}</a></h3>
                     <button class="btn" ng-click="goBack()">Go back</button>
                 </div>
             </div>

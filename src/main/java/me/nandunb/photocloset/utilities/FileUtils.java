@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class FileUtils {
 
-    private static final String[] VALID_EXTENSIONS = {".jpg", ".png", ".gif", ".webp", ".svg", ".ai", ".eps"};
+    private static final String[] VALID_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg", ".ai", ".eps"};
 
     public static boolean isNull(MultipartFile file) throws MissingFileException {
         if(file.isEmpty() || file == null)

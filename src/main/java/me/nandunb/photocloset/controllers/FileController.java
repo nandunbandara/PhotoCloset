@@ -1,4 +1,4 @@
-package me.nandunb.photocloset;
+package me.nandunb.photocloset.controllers;
 
 import me.nandunb.photocloset.utilities.AWSUtils;
 import org.springframework.beans.factory.annotation.Autowired;

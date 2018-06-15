@@ -9,6 +9,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import me.nandunb.photocloset.configs.AWSConfigs;
 import me.nandunb.photocloset.exceptions.InvalidFileTypeException;
+import me.nandunb.photocloset.exceptions.MissingFileException;
 import me.nandunb.photocloset.preprocessors.ResponsePreprocessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +51,7 @@ public class AWSUtils {
 
         try{
 
-            if(!FileUtils.isNull(multipartFile) || FileUtils.validateFileType(multipartFile)){
+            if(FileUtils.validateFileType(multipartFile)){
 
                 File file = FileUtils.convertMultiPartToFile(multipartFile);
                 String fileName = FileUtils.generateFileName(multipartFile);
@@ -66,11 +67,7 @@ public class AWSUtils {
 
 
 
-        } catch (IOException e) {
-
-            return ResponsePreprocessor.sendFailureResponse(e);
-
-        } catch (InvalidFileTypeException e) {
+        } catch (IOException | InvalidFileTypeException e) {
 
             return ResponsePreprocessor.sendFailureResponse(e);
 

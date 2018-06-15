@@ -16,6 +16,8 @@ angular.module('photocloset', [])
 
             if($scope.success){
                 $scope.fileUrl = response.data.fileUrl;
+            }else {
+                $scope.error = response.data.error;
             }
 
         }, function() {
