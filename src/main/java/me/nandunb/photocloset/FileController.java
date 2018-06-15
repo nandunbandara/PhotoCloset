@@ -1,6 +1,6 @@
 package me.nandunb.photocloset;
 
-import me.nandunb.photocloset.helpers.AmazonClient;
+import me.nandunb.photocloset.utilities.AWSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/storage")
 public class FileController {
 
-    private AmazonClient amazonClient;
+    private final AWSUtils awsUtils;
 
     @Autowired
-    FileController(AmazonClient amazonClient){
-        this.amazonClient = amazonClient;
+    FileController(AWSUtils awsUtils){
+        this.awsUtils = awsUtils;
     }
 
     @GetMapping("/")
@@ -24,6 +24,6 @@ public class FileController {
 
     @PostMapping("/upload")
     public ResponseEntity<Object> uploadFile(@RequestPart(value = "file")MultipartFile file){
-        return this.amazonClient.uploadFile(file);
+        return this.awsUtils.uploadFile(file);
     }
 }
