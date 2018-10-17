@@ -22,7 +22,7 @@ public class FileController {
         return "Storage API v1.0";
     }
 
-    @PostMapping("/upload")
+    @RequestMapping(value = "/upload", headers = "Content-Type= multipart/form-data", method = RequestMethod.POST)
     public ResponseEntity<Object> uploadFile(@RequestPart(value = "file")MultipartFile file){
         return this.awsUtils.uploadFile(file);
     }

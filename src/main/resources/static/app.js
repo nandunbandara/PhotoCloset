@@ -40,8 +40,7 @@ angular.module('photocloset', [])
             fileFormatData.append('file', file);
 
             var deferred = $q.defer();
-            $http.post('http://localhost:8080/storage/upload', fileFormatData, {
-                transformRequest: angular.identity,
+            $http.post('/storage/upload', fileFormatData, {
                 headers: {
                     'Content-Type': undefined
                 }

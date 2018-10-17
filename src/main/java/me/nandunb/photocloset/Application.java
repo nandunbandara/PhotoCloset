@@ -15,6 +15,7 @@ public class Application {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/storage/upload").allowedOrigins("http://localhost:8080");
                 registry.addMapping("/storage/upload").allowedOrigins("http://localhost:8081");
+                registry.addMapping("/storage/upload").allowedOrigins("http://54.89.178.143:8080");
             }
 
         };

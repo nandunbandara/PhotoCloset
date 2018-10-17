@@ -51,7 +51,7 @@ public class AWSUtils {
 
         try{
 
-            if(FileUtils.validateFileType(multipartFile)){
+            if(FileUtils.validateFileType(multipartFile)) {
 
                 File file = FileUtils.convertMultiPartToFile(multipartFile);
                 String fileName = FileUtils.generateFileName(multipartFile);
